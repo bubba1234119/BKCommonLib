@@ -1,6 +1,5 @@
 package com.bergerkiller.bukkit.common.entity.type;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import net.minecraft.server.v1_8_R1.BlockPosition;
@@ -224,10 +223,10 @@ public class CommonLivingEntity<T extends LivingEntity> extends CommonEntity<T> 
 			double y = location.getY();
 			double z = location.getZ();
 			if(!navigation.a(x, y, z, speed)) {
-				int dx = MathUtil.floor(x);
-				int dy = (int) y;
-				int dz = MathUtil.floor(z);
-				PathEntity path = nmsEntity.world.a(nmsEntity, dx, dy, dz, (float) this.getPathfindingRange(), true, false, false, true);
+				//int dx = MathUtil.floor(x);
+				//int dy = (int) y;
+				//int dz = MathUtil.floor(z);
+				PathEntity path = null;//nmsEntity.world.a(nmsEntity, dx, dy, dz, (float) this.getPathfindingRange(), true, false, false, true);
 				this.moveWithPath(path, speed);
 			}
 		}
@@ -248,16 +247,19 @@ public class CommonLivingEntity<T extends LivingEntity> extends CommonEntity<T> 
 		if(nmsEntity instanceof EntityInsentient) {
 			Navigation navigation = (Navigation) EntityLivingRef.getNavigation.invoke(nmsEntity);
 			if(!navigation.a(nmsTargetEntity, speed)) {
-				PathEntity path = findPath(nmsEntity, nmsTargetEntity, (float) this.getPathfindingRange(), true, false, false, true);
+				PathEntity path = null;//findPath(nmsEntity, nmsTargetEntity, (float) this.getPathfindingRange(), true, false, false, true);
 				//nmsEntity.world.
 				this.moveWithPath(path, speed);
-				
+				/*Will move likely need to be updated
+				 * 
+				 * 
+				 */
 			}
 		}
 	}
 	/* Supporting old findPath method which no longer exists in world
 	 */
-	  public PathEntity findPath(net.minecraft.server.v1_8_R1.Entity entity, net.minecraft.server.v1_8_R1.Entity entity1, float f, boolean flag, boolean flag1, boolean flag2, boolean flag3)
+	  /*public PathEntity findPath(net.minecraft.server.v1_8_R1.Entity entity, net.minecraft.server.v1_8_R1.Entity entity1, float f, boolean flag, boolean flag1, boolean flag2, boolean flag3)
 	  {
 	    entity.getWorld().methodProfiler.a("pathfind");
 	    int i = MathHelper.floor(entity.getBukkitEntity().getLocation().getBlockX());
@@ -271,11 +273,11 @@ public class CommonLivingEntity<T extends LivingEntity> extends CommonEntity<T> 
 	    int i2 = j + l;
 	    int j2 = k + l;
 	    ChunkCache chunkcache = new ChunkCache(entity.getWorld(), new BlockPosition(i1, j1, k1), new BlockPosition(l1, i2, j2), 0);
-	    PathEntity pathentity = (new Pathfinder(chunkcache., flag, flag1, flag2, flag3)).a(entity, entity1, f);
+	    PathEntity pathentity = entity.move(arg0, arg1, arg2);//(new Pathfinder(chunkcache.getType(new BlockPosition(entity1.locX,entity1.locY,entity1.locZ)), flag, flag1, flag2, flag3)).a(entity, entity1, f);
 	    
 	    entity.getWorld().methodProfiler.b();
 	    return pathentity;
-	  }
+	  }*/
 	
 	private void moveWithPath(PathEntity path, double speed) {
 		EntityLiving nmsEntity = CommonNMS.getNative(entity);
