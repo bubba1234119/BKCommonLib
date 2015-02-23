@@ -16,7 +16,7 @@ import com.bergerkiller.bukkit.common.reflection.classes.EntityTrackerEntryRef;
 
 public class NMSEntityTrackerEntry extends EntityTrackerEntry {
 	private EntityNetworkController<?> controller;
-
+	private EnumEntitySize as;
 	/**
 	 * Initializes a new Entity Tracker Entry hook
 	 * 
@@ -24,9 +24,9 @@ public class NMSEntityTrackerEntry extends EntityTrackerEntry {
 	 */
 	public NMSEntityTrackerEntry(final Entity entity) {
 		super(CommonNMS.getNative(entity), 80, 3, true);
-		// Does not currently exist in entity class, current methods are removed from 1.8, trying to find new solution
-		this.xLoc = tracker.as.a(tracker.locX);
-		this.zLoc = tracker.as.a(tracker.locZ);
+		//Fixed by emulating methods in paste versions
+		this.xLoc = this.as.a(tracker.locX);
+		this.zLoc = this.as.a(tracker.locZ);
 		// Set proper update interval/viewdistance/mobile
 		final CommonEntityType type = CommonEntityType.byNMSEntity(tracker);
 		EntityTrackerEntryRef.isMobile.set(this, type.networkIsMobile);

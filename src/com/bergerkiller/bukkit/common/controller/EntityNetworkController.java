@@ -24,6 +24,7 @@ import com.bergerkiller.bukkit.common.bases.mutable.VectorAbstract;
 import com.bergerkiller.bukkit.common.conversion.Conversion;
 import com.bergerkiller.bukkit.common.entity.CommonEntity;
 import com.bergerkiller.bukkit.common.entity.CommonEntityController;
+import com.bergerkiller.bukkit.common.entity.nms.EnumEntitySize;
 import com.bergerkiller.bukkit.common.entity.nms.NMSEntityTrackerEntry;
 import com.bergerkiller.bukkit.common.protocol.CommonPacket;
 import com.bergerkiller.bukkit.common.protocol.PacketType;
@@ -44,6 +45,9 @@ import com.bergerkiller.bukkit.common.wrappers.DataWatcher;
  * @param <T> - type of Common Entity this controller is for
  */
 public abstract class EntityNetworkController<T extends CommonEntity<?>> extends CommonEntityController<T> {
+	
+	private EnumEntitySize es;
+	
 	/**
 	 * The maximum allowed distance per relative movement update
 	 */
@@ -893,6 +897,6 @@ public abstract class EntityNetworkController<T extends CommonEntity<?>> extends
 	}
 
 	private int protLoc(double loc) {
-		return ((EntityTrackerEntry) handle).tracker.as.a(loc);
+		return this.es.a(loc);
 	}
 }

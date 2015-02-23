@@ -1,20 +1,31 @@
 package com.bergerkiller.bukkit.common.entity.type;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
+import net.minecraft.server.v1_8_R1.BlockPosition;
+import net.minecraft.server.v1_8_R1.ChunkCache;
 import net.minecraft.server.v1_8_R1.EntityCreature;
 import net.minecraft.server.v1_8_R1.EntityInsentient;
 import net.minecraft.server.v1_8_R1.EntityLiving;
 import net.minecraft.server.v1_8_R1.GenericAttributes;
+import net.minecraft.server.v1_8_R1.IBlockAccess;
+import net.minecraft.server.v1_8_R1.MathHelper;
 import net.minecraft.server.v1_8_R1.Navigation;
 import net.minecraft.server.v1_8_R1.PathEntity;
+import net.minecraft.server.v1_8_R1.Pathfinder;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_8_R1.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.util.Vector;
 
 import com.bergerkiller.bukkit.common.entity.CommonEntity;
+import com.bergerkiller.bukkit.common.entity.nms.EnumEntitySize;
 import com.bergerkiller.bukkit.common.internal.CommonNMS;
 import com.bergerkiller.bukkit.common.reflection.classes.EntityLivingRef;
 import com.bergerkiller.bukkit.common.utils.MathUtil;
@@ -27,6 +38,7 @@ import com.bergerkiller.bukkit.common.utils.WorldUtil;
  */
 public class CommonLivingEntity<T extends LivingEntity> extends CommonEntity<T> {
 
+	
 	public CommonLivingEntity(T entity) {
 		super(entity);
 	}
@@ -228,23 +240,55 @@ public class CommonLivingEntity<T extends LivingEntity> extends CommonEntity<T> 
 	 * @param speed to move with
 	 */
 	public void moveTo(Entity entity, double speed) {
+		
+		
+		
 		EntityLiving nmsEntity = CommonNMS.getNative(this.entity);
 		net.minecraft.server.v1_8_R1.Entity nmsTargetEntity = CommonNMS.getNative(entity);
 		if(nmsEntity instanceof EntityInsentient) {
 			Navigation navigation = (Navigation) EntityLivingRef.getNavigation.invoke(nmsEntity);
 			if(!navigation.a(nmsTargetEntity, speed)) {
-				PathEntity path = nmsEntity.world.findPath(nmsEntity, nmsTargetEntity, (float) this.getPathfindingRange(), true, false, false, true);
+				PathEntity path = findPath(nmsEntity, nmsTargetEntity, (float) this.getPathfindingRange(), true, false, false, true);
+				//nmsEntity.world.
 				this.moveWithPath(path, speed);
+				
 			}
 		}
 	}
+	/* Supporting old findPath method which no longer exists in world
+	 */
+	  public PathEntity findPath(net.minecraft.server.v1_8_R1.Entity entity, net.minecraft.server.v1_8_R1.Entity entity1, float f, boolean flag, boolean flag1, boolean flag2, boolean flag3)
+	  {
+	    entity.getWorld().methodProfiler.a("pathfind");
+	    int i = MathHelper.floor(entity.getBukkitEntity().getLocation().getBlockX());
+	    int j = MathHelper.floor(entity.getBukkitEntity().getLocation().getBlockY() + 1.0D);
+	    int k = MathHelper.floor(entity.getBukkitEntity().getLocation().getBlockZ());
+	    int l = (int)(f + 16.0F);
+	    int i1 = i - l;
+	    int j1 = j - l;
+	    int k1 = k - l;
+	    int l1 = i + l;
+	    int i2 = j + l;
+	    int j2 = k + l;
+	    ChunkCache chunkcache = new ChunkCache(entity.getWorld(), new BlockPosition(i1, j1, k1), new BlockPosition(l1, i2, j2), 0);
+	    PathEntity pathentity = (new Pathfinder(chunkcache., flag, flag1, flag2, flag3)).a(entity, entity1, f);
+	    
+	    entity.getWorld().methodProfiler.b();
+	    return pathentity;
+	  }
 	
 	private void moveWithPath(PathEntity path, double speed) {
 		EntityLiving nmsEntity = CommonNMS.getNative(entity);
 		if(nmsEntity instanceof EntityInsentient) {
 			if(nmsEntity instanceof EntityCreature)
-				((EntityCreature) nmsEntity).setPathEntity(path);
-			
+			{
+				//((EntityCreature) nmsEntity).setPathEntity(path);
+				EntityCreature creature = ((EntityCreature) nmsEntity);
+				creature.move(path.c().a, path.c().b, path.c().c);
+				/*Not sure if this method is working, setPathEntity is removed
+				 *
+				 */
+			}
 			Navigation navigation = (Navigation) EntityLivingRef.getNavigation.invoke(nmsEntity);
 			navigation.a(path, speed);
 		}
