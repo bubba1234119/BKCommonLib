@@ -3,18 +3,25 @@ package com.bergerkiller.bukkit.common.reflection.classes;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R1.util.CraftMagicNumbers;
+import org.bukkit.material.MaterialData;
 
 import net.minecraft.server.v1_8_R1.Block;
 import net.minecraft.server.v1_8_R1.BlockPosition;
 import net.minecraft.server.v1_8_R1.Chunk;
 import net.minecraft.server.v1_8_R1.EnumSkyBlock;
+import net.minecraft.server.v1_8_R1.IBlockData;
+import net.minecraft.server.v1_8_R1.IBlockState;
+import net.minecraft.server.v1_8_R1.World;
 
+import com.bergerkiller.bukkit.common.internal.CommonNMS;
 import com.bergerkiller.bukkit.common.reflection.ClassTemplate;
 import com.bergerkiller.bukkit.common.reflection.FieldAccessor;
 import com.bergerkiller.bukkit.common.reflection.MethodAccessor;
 import com.bergerkiller.bukkit.common.reflection.NMSClassTemplate;
 import com.bergerkiller.bukkit.common.reflection.SafeField;
+import com.bergerkiller.bukkit.common.utils.BlockUtil;
 import com.bergerkiller.bukkit.common.utils.CommonUtil;
 
 public class ChunkRef {
@@ -93,7 +100,11 @@ public class ChunkRef {
 	}
 
 	public static boolean setBlock(Object chunkHandle, int x, int y, int z,Object type, int data) {
-		return ((Chunk) chunkHandle).a(x & XZ_MASK, y, z & XZ_MASK,(Block)type, data);
+
+		/*Needs to be changed, not sure how to set nms block data
+		 */
+		return ((Chunk) chunkHandle).world.a(new BlockPosition(x & XZ_MASK, y, z & XZ_MASK),((Block)type));
+		//return ((Chunk) chunkHandle).a(x & XZ_MASK, y, z & XZ_MASK,(Block)type, data);
 	}
 
 	@Deprecated
