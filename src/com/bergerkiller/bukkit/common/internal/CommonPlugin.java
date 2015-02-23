@@ -293,7 +293,7 @@ public class CommonPlugin extends PluginBase {
 		if (!enabled) {
 			packetHandler.removePacketListeners(plugin);
 		}
-		this.entityBlacklist.updateDependency(plugin, pluginName, enabled);
+		//this.entityBlacklist.updateDependency(plugin, pluginName, enabled);
 		this.permissionHandler.updateDependency(plugin, pluginName, enabled);
 		if (!this.updatePacketHandler()) {
 			this.onCriticalFailure();
@@ -422,7 +422,7 @@ public class CommonPlugin extends PluginBase {
 		playerVisibleChunks = new EntityMap<Player, CommonPlayerMeta>();
 
 		// Initialize Entity Blacklist
-		entityBlacklist = new CommonEntityBlacklist();
+		//entityBlacklist = new CommonEntityBlacklist();
 
 		// Register events and tasks, initialize
 		register(listener = new CommonListener());

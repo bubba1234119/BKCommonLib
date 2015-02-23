@@ -4,20 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import me.snowleo.bleedingmobs.BleedingMobs;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.plugin.Plugin;
 
-import regalowl.hyperconomy.HyperConomy;
-
 import com.bergerkiller.bukkit.common.filtering.Filter;
-import com.kellerkindt.scs.ShowCaseStandalone;
-import com.narrowtux.showcase.Showcase;
 
-public class CommonEntityBlacklist implements Filter<Entity> {
-	private final List<BlacklistFilter> availableFilters = new ArrayList<BlacklistFilter>();
+//Temporarily abstract, code most likely not needed, plugins all seem to be old/outdated
+public abstract class CommonEntityBlacklist implements Filter<Entity> {
+	/*private final List<BlacklistFilter> availableFilters = new ArrayList<BlacklistFilter>();
 
 	public CommonEntityBlacklist() {
 		// ===============================================
@@ -136,5 +132,5 @@ public class CommonEntityBlacklist implements Filter<Entity> {
 		public boolean matchPlugin(String pluginName) {
 			return pluginName.equals(this.pluginName);
 		}
-	}
+	}*/
 }

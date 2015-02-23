@@ -22,6 +22,6 @@ public class CommonDisabledEntity extends Entity {
 	}
 
 	@Override
-	protected void c() {
+	protected void h() {
 	}
 }

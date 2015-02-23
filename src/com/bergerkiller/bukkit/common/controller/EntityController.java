@@ -3,6 +3,9 @@ package com.bergerkiller.bukkit.common.controller;
 import java.util.List;
 
 import net.minecraft.server.v1_8_R1.AxisAlignedBB;
+import net.minecraft.server.v1_8_R1.Block;
+import net.minecraft.server.v1_8_R1.BlockPosition;
+import net.minecraft.server.v1_8_R1.Blocks;
 import net.minecraft.server.v1_8_R1.DamageSource;
 import net.minecraft.server.v1_8_R1.Entity;
 
@@ -143,13 +146,13 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 	 */
 	public void onMove(double dx, double dy, double dz) {
 		final Entity handle = entity.getHandle(Entity.class);
-		if (handle.X) {
-			handle.getBoundingBox().d(dx, dy, dz);
+		if (handle.T) {
+			handle.getBoundingBox().c(dx, dy, dz);
 			handle.locX = CommonNMS.getMiddleX(handle.getBoundingBox());
-			handle.locY = (handle.getBoundingBox().b + (double) handle.height) - (double) handle.W;
+			handle.locY = CommonNMS.getMiddleY(handle.getBoundingBox());//(handle.getBoundingBox().b + (double) handle.height) - (double) handle.W;
 			handle.locZ = CommonNMS.getMiddleZ(handle.getBoundingBox());
 		} else {
-			handle.W *= 0.4f;
+			handle.U *= 0.4f;
 			final double oldLocX = handle.locX;
 			final double oldLocY = handle.locY;
 			final double oldLocZ = handle.locZ;
@@ -171,15 +174,15 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 			final double oldDx = dx;
 			final double oldDy = dy;
 			final double oldDz = dz;
-			AxisAlignedBB axisalignedbb = handle.getBoundingBox().clone();
+			AxisAlignedBB axisalignedbb = handle.getBoundingBox();
 			List<AxisAlignedBB> list = EntityControllerCollisionHelper.getCollisions(this, handle.getBoundingBox().a(dx, dy, dz));
 
 			// Collision testing using Y
 			for (AxisAlignedBB aabb : list) {
 				dy = aabb.b(handle.getBoundingBox(), dy);
 			}
-			handle.getBoundingBox().d(0.0, dy, 0.0);
-			if (!handle.J && oldDy != dy) {
+			handle.getBoundingBox().c(0.0, dy, 0.0);
+			if (!handle.aS() && oldDy != dy) {
 				dx = dy = dz = 0.0;
 			}
 			boolean isOnGround = handle.onGround || oldDy != dy && oldDy < 0.0;
@@ -188,7 +191,7 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 			for (AxisAlignedBB aabb : list) {
 				dx = aabb.a(handle.getBoundingBox(), dx);
 			}
-			handle.getBoundingBox().d(dx, 0.0, 0.0);
+			handle.getBoundingBox().c(dx, 0.0, 0.0);
 			if (!handle.J && oldDx != dx) {
 				dx = dy = dz = 0.0;
 			}
@@ -197,24 +200,24 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 			for (AxisAlignedBB aabb : list) {
 				dz = aabb.c(handle.getBoundingBox(), dz);
 			}
-			handle.getBoundingBox().d(0.0, 0.0, dz);
-			if (!handle.J && oldDz != dz) {
+			handle.getBoundingBox().c(0.0, 0.0, dz);
+			if (!handle.aS() && oldDz != dz) {
 				dx = dy = dz = 0.0;
 			}
 
 			double moveDx;
 			double moveDy;
 			double moveDz;
-			if (handle.Y > 0.0f && handle.Y < 0.05f && isOnGround && (oldDx != dx || oldDz != dz)) {
+			if (handle.U > 0.0f && handle.U < 0.05f && isOnGround && (oldDx != dx || oldDz != dz)) {
 				moveDx = dx;
 				moveDy = dy;
 				moveDz = dz;
 				dx = oldDx;
-				dy = (double) handle.Y;
+				dy = (double) handle.U;
 				dz = oldDz;
 																//handle.getBoundingBox().clone();
-				AxisAlignedBB axisalignedbb1 = ((AxisAlignedBB) handle.getBoundingBox());
-				handle.getBoundingBox().d(axisalignedbb);
+				AxisAlignedBB axisalignedbb1 = handle.getBoundingBox();
+				handle.getBoundingBox().a(axisalignedbb);
 
 				list = EntityControllerCollisionHelper.getCollisions(this, handle.getBoundingBox().a(oldDx, dy, oldDz));
 
@@ -222,8 +225,8 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 				for (AxisAlignedBB aabb : list) {
 					dy = aabb.b(handle.getBoundingBox(), dy);
 				}
-				handle.getBoundingBox().d(0.0, dy, 0.0);
-				if (!handle.J && oldDy != dy) {
+				handle.getBoundingBox().c(0.0, dy, 0.0);
+				if (!handle.aS() && oldDy != dy) {
 					dx = dy = dz = 0.0;
 				}
 
@@ -231,8 +234,8 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 				for (AxisAlignedBB aabb : list) {
 					dx = aabb.a(handle.getBoundingBox(), dx);
 				}
-				handle.getBoundingBox().d(dx, 0.0, 0.0);
-				if (!handle.J && oldDx != dx) {
+				handle.getBoundingBox().c(dx, 0.0, 0.0);
+				if (!handle.aS() && oldDx != dx) {
 					dx = dy = dz = 0.0;
 				}
 
@@ -240,19 +243,19 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 				for (AxisAlignedBB aabb : list) {
 					dz = aabb.c(handle.getBoundingBox(), dz);
 				}
-				handle.getBoundingBox().d(0.0, 0.0, dz);
-				if (!handle.J && oldDz != dz) {
+				handle.getBoundingBox().c(0.0, 0.0, dz);
+				if (!handle.aS() && oldDz != dz) {
 					dx = dy = dz = 0.0;
 				}
 
-				if (!handle.J && oldDy != dy) {
+				if (!handle.aS() && oldDy != dy) {
 					dx = dy = dz = 0.0;
 				} else {
 					dy = (double) -handle.Y;
 					for (int k = 0; k < list.size(); k++) {
 						dy = list.get(k).b(handle.getBoundingBox(), dy);
 					}
-					handle.getBoundingBox().d(0.0, dy, 0.0);
+					handle.getBoundingBox().c(0.0, dy, 0.0);
 				}
 				if (MathUtil.lengthSquared(moveDx, moveDz) >= MathUtil.lengthSquared(dx, dz)) {
 					dx = moveDx;
@@ -271,8 +274,8 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 			handle.locZ = CommonNMS.getMiddleZ(handle.getBoundingBox());
 			entity.setMovementImpaired(oldDx != dx || oldDz != dz);
 			handle.onGround = oldDy != dy && oldDy < 0.0;
-			handle.G = oldDy != dy;
-			handle.F = entity.isMovementImpaired() || handle.G;
+			handle.F = oldDy != dy;
+			handle.E = entity.isMovementImpaired() || handle.G;
 			EntityRef.updateFalling(handle, dy, handle.onGround);
 
 			// ================ Collision slowdown caused by ==============
@@ -316,12 +319,12 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 			int bX = entity.loc.x.block();
 			int bY = MathUtil.floor(handle.locY - 0.2 - (double) handle.height);
 			int bZ = entity.loc.z.block();
-			Block block = handle.world.getType(bX, bY, bZ);
-			int j1 = handle.world.getType(bX, bY - 1, bZ).b();
+			Block block = handle.world.getType(new BlockPosition(bX, bY, bZ)).getBlock();
+			int j1 = handle.world.getType(new BlockPosition(bX, bY - 1, bZ)).b();
 
 			// Magic values! *gasp* Bad, BAD Minecraft! Go sit in a corner!
 			if (j1 == 11 || j1 == 32 || j1 == 21) {
-				block = handle.world.getType(bX, bY - 1, bZ);
+				block = handle.world.getType(new BlockPosition(bX, bY - 1, bZ)).getBlock();
 			}
 			if (block != Blocks.LADDER) {
 				moveDy = 0.0;

@@ -86,47 +86,6 @@ class CommonWorldListener extends WorldManager {
 	}
 
 	@Override
-	public final void a(int arg0, int arg1, int arg2) {
-		// Block notify (physics)
-	}
-
-	@Override
-	public void b() {
-	}
-
-	@Override
-	public void a(int arg0, int arg1, int arg2, int arg3, int arg4) {
-	}
-
-	@Override
-	public void a(String name, double x, double y, double z, float yaw, float pitch) {
-	}
-
-	@Override
-	public void a(EntityHuman human, int code, int x, int y, int z, int dat) {
-	}
-
-	@Override
-	public void a(String name, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6) {
-	}
-
-	@Override
-	public void b(int x, int y, int z) {
-	}
-
-	@Override
-	public void a(String name, int x, int y, int z) {
-	}
-
-	@Override
-	public void a(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
-	}
-
-	@Override
-	public void b(int arg0, int arg1, int arg2, int arg3, int arg4) {
-	}
-
-	@Override
 	public void a(EntityHuman human, String name, double x, double y, double z, float yaw, float pitch) {
 	}
 

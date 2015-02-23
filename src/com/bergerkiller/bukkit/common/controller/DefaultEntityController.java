@@ -35,7 +35,7 @@ public final class DefaultEntityController extends EntityController {
 		if (handle instanceof NMSEntityHook) {
 			super.onTick();
 		} else {
-			((Entity) handle).h();
+			((Entity) handle).s_();
 		}
 	}
 
@@ -45,7 +45,7 @@ public final class DefaultEntityController extends EntityController {
 		if (handle instanceof NMSEntityHook) {
 			return super.onInteractBy(interacter);
 		} else {
-			return ((Entity) handle).c(CommonNMS.getNative(interacter));
+			return ((Entity) handle).e(CommonNMS.getNative(interacter));
 		}
 	}
 

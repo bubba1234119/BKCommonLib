@@ -47,7 +47,7 @@ class BlockInfoImpl extends BlockInfo {
 	@Override
 	public boolean isSuffocating() {
 		//return getHandle(Block.class).r(); old
-		return getHandle(Block.class).
+		return getHandle(Block.class).isOccluding();
 	}
 
 	@Override

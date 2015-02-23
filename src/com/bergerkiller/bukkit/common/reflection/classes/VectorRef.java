@@ -51,11 +51,11 @@ public class VectorRef {
 	}
 
 	public static int getPairX(Object chunkCoordIntPair) {
-		return ((ChunkCoordIntPair) chunkCoordIntPair).x;
+		return ((ChunkCoordIntPair) chunkCoordIntPair).getChunkX();
 	}
 
 	public static int getPairZ(Object chunkCoordIntPair) {
-		return ((ChunkCoordIntPair) chunkCoordIntPair).z;
+		return ((ChunkCoordIntPair) chunkCoordIntPair).getChunkZ();
 	}
 
 	public static boolean isPair(Object chunkCoordIntPair) {
@@ -94,7 +94,7 @@ public class VectorRef {
 
 	public static IntVector3 getPosition(Object chunkPosition) {
 		ChunkPosition position = (ChunkPosition) chunkPosition;
-		return new IntVector3(position.x, position.y, position.z);
+		return new IntVector3(position.getX(), position.getY(), position.getZ());
 	}
 
 	public static int getPositionX(Object chunkPosition) {

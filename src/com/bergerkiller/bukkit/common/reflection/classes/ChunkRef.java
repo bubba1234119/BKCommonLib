@@ -68,7 +68,7 @@ public class ChunkRef {
 	 * @return chunk section highest y-position
 	 */
 	public static int getTopSectionY(Object chunkHandle) {
-		return ((Chunk) chunkHandle).h();
+		return ((Chunk) chunkHandle).g();
 	}
 
 	public static int getHeight(Object chunkHandle, int x, int z) {
@@ -89,11 +89,11 @@ public class ChunkRef {
 		} else if (y >= ((Chunk) chunkHandle).world.getWorld().getMaxHeight()) {
 			return mode.c;
 		}
-		return ((Chunk) chunkHandle).getBrightness(mode, x & XZ_MASK, y, z & XZ_MASK);
+		return ((Chunk) chunkHandle).getBrightness(mode, new BlockPosition(x & XZ_MASK, y, z & XZ_MASK));
 	}
 
-	public static boolean setBlock(Object chunkHandle, int x, int y, int z, Object type, int data) {
-		return ((Chunk) chunkHandle).a(x & XZ_MASK, y, z & XZ_MASK, (Block) type, data);
+	public static boolean setBlock(Object chunkHandle, int x, int y, int z, int data) {
+		return ((Chunk) chunkHandle).a(x & XZ_MASK, y, z & XZ_MASK, (Block)type, data);
 	}
 
 	@Deprecated
@@ -102,11 +102,11 @@ public class ChunkRef {
 	}
 
 	public static int getData(Object chunkHandle, int x, int y, int z) {
-		return ((Chunk) chunkHandle).getBlockData(new BlockPosition(x & XZ_MASK, y, z & XZ_MASK));
+		return ((Chunk) chunkHandle).b(new BlockPosition(x & XZ_MASK, y, z & XZ_MASK));
 	}
 
 	public static Object getType(Object chunkHandle, int x, int y, int z) {
-		return ((Chunk) chunkHandle).getType(x & XZ_MASK, y, z & XZ_MASK);
+		return ((Chunk) chunkHandle).getType(new BlockPosition(x & XZ_MASK, y, z & XZ_MASK));
 	}
 
 	@Deprecated
