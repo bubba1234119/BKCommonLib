@@ -190,7 +190,7 @@ public class ChunkUtil {
 		WorldServer world = CommonNMS.getNative(chunk.getWorld());
 		Block typeBlock = CommonNMS.getBlock(type);
 		if (result) {
-			result = ChunkRef.setBlock(Conversion.toChunkHandle.convert(chunk), x, y, z, typeBlock, data);
+			result = ChunkRef.setBlock(Conversion.toChunkHandle.convert(chunk), x, y, z, Block.getId(typeBlock), data);
             world.methodProfiler.a("checkLight");
             world.A(new BlockPosition(x, y, z));
             //z

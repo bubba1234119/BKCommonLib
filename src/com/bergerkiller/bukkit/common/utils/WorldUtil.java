@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.server.v1_8_R1.BlockPosition;
 import net.minecraft.server.v1_8_R1.Entity;
 import net.minecraft.server.v1_8_R1.IDataManager;
 import net.minecraft.server.v1_8_R1.MovingObjectPosition;
@@ -448,7 +449,7 @@ public class WorldUtil extends ChunkUtil {
 	}
 
 	public static boolean areBlocksLoaded(org.bukkit.World world, int blockCenterX, int blockCenterZ, int distance) {
-		return CommonNMS.getNative(world).areChunksLoaded(blockCenterX, 0, blockCenterZ, distance);
+		return CommonNMS.getNative(world).areChunksLoaded(new BlockPosition(blockCenterX, 0, blockCenterZ), distance,true);
 	}
 
 	public static void queueChunkSend(org.bukkit.Chunk chunk) {

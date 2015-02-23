@@ -192,7 +192,7 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 				dx = aabb.a(handle.getBoundingBox(), dx);
 			}
 			handle.getBoundingBox().c(dx, 0.0, 0.0);
-			if (!handle.J && oldDx != dx) {
+			if (!handle.aS() && oldDx != dx) {
 				dx = dy = dz = 0.0;
 			}
 
@@ -251,7 +251,7 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 				if (!handle.aS() && oldDy != dy) {
 					dx = dy = dz = 0.0;
 				} else {
-					dy = (double) -handle.Y;
+					dy = (double) -handle.U;
 					for (int k = 0; k < list.size(); k++) {
 						dy = list.get(k).b(handle.getBoundingBox(), dy);
 					}
@@ -261,21 +261,21 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 					dx = moveDx;
 					dy = moveDy;
 					dz = moveDz;
-					handle.getBoundingBox().d(axisalignedbb1);
+					handle.getBoundingBox().a(axisalignedbb1);
 				} else {
 					double subY = handle.getBoundingBox().b - (int) handle.getBoundingBox().b;
 					if (subY > 0.0) {
-						handle.Y += subY + 0.01;
+						handle.U += subY + 0.01;
 					}
 				}
 			}
 			handle.locX = CommonNMS.getMiddleX(handle.getBoundingBox());
-			handle.locY = handle.getBoundingBox().b + (double) handle.height - (double) handle.Y;
+			handle.locY = handle.getBoundingBox().b + (double) handle.width/2 - (double) handle.U;
 			handle.locZ = CommonNMS.getMiddleZ(handle.getBoundingBox());
 			entity.setMovementImpaired(oldDx != dx || oldDz != dz);
 			handle.onGround = oldDy != dy && oldDy < 0.0;
 			handle.F = oldDy != dy;
-			handle.E = entity.isMovementImpaired() || handle.G;
+			handle.E = entity.isMovementImpaired() || handle.F;
 			EntityRef.updateFalling(handle, dy, handle.onGround);
 
 			// ================ Collision slowdown caused by ==============
@@ -295,7 +295,7 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 			moveDz = handle.locZ - oldLocZ;
 			if (entity.getEntity() instanceof Vehicle && entity.isMovementImpaired()) {
 				Vehicle vehicle = (Vehicle) entity.getEntity();
-				org.bukkit.block.Block block = entity.getWorld().getBlockAt(entity.loc.x.block(), MathUtil.floor(handle.locY - (double) handle.height), entity.loc.z.block());
+				org.bukkit.block.Block block = entity.getWorld().getBlockAt(entity.loc.x.block(), MathUtil.floor(handle.locY - (double) handle.width/2), entity.loc.z.block());
 				if (oldDx > dx) {
 					block = block.getRelative(BlockFace.EAST);
 				} else if (oldDx < dx) {
@@ -317,10 +317,10 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 		// Update entity movement sounds
 		if (EntityRef.hasMovementSound(handle) && handle.vehicle == null) {
 			int bX = entity.loc.x.block();
-			int bY = MathUtil.floor(handle.locY - 0.2 - (double) handle.height);
+			int bY = MathUtil.floor(handle.locY - 0.2 - (double) handle.width/2);
 			int bZ = entity.loc.z.block();
 			Block block = handle.world.getType(new BlockPosition(bX, bY, bZ)).getBlock();
-			int j1 = handle.world.getType(new BlockPosition(bX, bY - 1, bZ)).b();
+			int j1 = Block.getId(handle.world.getType(new BlockPosition(bX, bY - 1, bZ)).getBlock());
 
 			// Magic values! *gasp* Bad, BAD Minecraft! Go sit in a corner!
 			if (j1 == 11 || j1 == 32 || j1 == 21) {
@@ -331,9 +331,9 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 			}
 
 			handle.Q += MathUtil.length(moveDx, moveDz) * 0.6;
-			handle.O += MathUtil.length(moveDx, moveDy, moveDz) * 0.6;
-			if (handle.O > EntityRef.stepCounter.get(entity.getHandle()) && block != Blocks.AIR) {
-				EntityRef.stepCounter.set(entity.getHandle(), (int) handle.O + 1);
+			handle.L += MathUtil.length(moveDx, moveDy, moveDz) * 0.6;
+			if (handle.L > EntityRef.stepCounter.get(entity.getHandle()) && block != Blocks.AIR) {
+				EntityRef.stepCounter.set(entity.getHandle(), (int) handle.L + 1);
 				if (entity.isInWater(true)) {
 					float f = (float) Math.sqrt(entity.vel.y.squared() + 0.2 * entity.vel.xz.lengthSquared()) * 0.35f;
 					if (f > 1.0f) {
@@ -342,14 +342,14 @@ public class EntityController<T extends CommonEntity<?>> extends CommonEntityCon
 					entity.makeRandomSound(EntityRef.getSwimSound.invoke(handle), f, 1.0f);
 				}
 				entity.makeStepSound(bX, bY, bZ, CommonNMS.getMaterial(block));
-				block.b(handle.world, bX, bY, bZ, handle);
+				block.a(handle.world, new BlockPosition(bX, bY, bZ), handle);
 			}
 		}
 
 		EntityRef.updateBlockCollision(handle);
 
 		// Fire tick calculation (check using block collision)
-		final boolean isInWater = handle.L(); // In water or raining
+		final boolean isInWater = handle.U(); // In water or raining
 		if (handle.world.e(handle.getBoundingBox().shrink(0.001, 0.001, 0.001))) {
 			onBurnDamage(1);
 			if (!isInWater) {

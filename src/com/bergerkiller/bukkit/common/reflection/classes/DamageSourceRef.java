@@ -8,10 +8,10 @@ import org.bukkit.entity.LivingEntity;
 
 import com.bergerkiller.bukkit.common.internal.CommonNMS;
 
-import net.minecraft.server.DamageSource;
-import net.minecraft.server.EntityArrow;
-import net.minecraft.server.EntityFireball;
-import net.minecraft.server.Explosion;
+import net.minecraft.server.v1_8_R1.DamageSource;
+import net.minecraft.server.v1_8_R1.EntityArrow;
+import net.minecraft.server.v1_8_R1.EntityFireball;
+import net.minecraft.server.v1_8_R1.Explosion;
 
 public class DamageSourceRef {
 	public static final Object FIRE = DamageSource.FIRE;
@@ -59,7 +59,7 @@ public class DamageSourceRef {
 	public static Object forExplosion(Entity explodableEntity) {
 		Explosion expl = null;
 		if (explodableEntity != null) {
-			expl = new Explosion(null, CommonNMS.getNative(explodableEntity), 0.0, 0.0, 0.0, 0.0f);
+			expl = new Explosion(null, CommonNMS.getNative(explodableEntity), 0.0, 0.0, 0.0, 0.0f, true, true);
 		}
 		return DamageSource.explosion(expl);
 	}

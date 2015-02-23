@@ -359,7 +359,7 @@ public class MaterialUtil {
 		@Override
 		public Boolean get(Material type) {
 			final Item item = CommonNMS.getItem(type);
-			return item == null ? false : item.k()();
+			return item == null ? false : item.i();
 		}
 	};
 

@@ -50,7 +50,7 @@ class EntityControllerCollisionHelper {
 					for (y = ymin - 1; y < ymax; ++y) {
 						Block block = handle.world.getType(new BlockPosition(x, y, z)).getBlock();
 						if (block != null) {
-							block.a(handle.world, new BlockPosition(x, y, z), bounds, collisionBuffer, handle);
+							block.a(handle.world, new BlockPosition(x, y, z),block.getBlockData(), bounds, collisionBuffer, handle);
 						}
 					}
 				}

@@ -92,13 +92,13 @@ public class ChunkRef {
 		return ((Chunk) chunkHandle).getBrightness(mode, new BlockPosition(x & XZ_MASK, y, z & XZ_MASK));
 	}
 
-	public static boolean setBlock(Object chunkHandle, int x, int y, int z, int data) {
-		return ((Chunk) chunkHandle).a(x & XZ_MASK, y, z & XZ_MASK, (Block)type, data);
+	public static boolean setBlock(Object chunkHandle, int x, int y, int z,Object type, int data) {
+		return ((Chunk) chunkHandle).a(x & XZ_MASK, y, z & XZ_MASK,(Block)type, data);
 	}
 
 	@Deprecated
 	public static boolean setBlock(Object chunkHandle, int x, int y, int z, int typeId, int data) {
-		return setBlock(chunkHandle, x, y, z, CraftMagicNumbers.getBlock(typeId), data);
+		return setBlock(chunkHandle, x, y, z, typeId, data);
 	}
 
 	public static int getData(Object chunkHandle, int x, int y, int z) {

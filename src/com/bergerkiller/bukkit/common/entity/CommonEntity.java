@@ -1,11 +1,14 @@
 package com.bergerkiller.bukkit.common.entity;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.logging.Level;
 
 import net.minecraft.server.v1_8_R1.Chunk;
 import net.minecraft.server.v1_8_R1.Entity;
+import net.minecraft.server.v1_8_R1.EntitySlice;
 import net.minecraft.server.v1_8_R1.EntityTrackerEntry;
 import net.minecraft.server.v1_8_R1.IInventory;
 import net.minecraft.server.v1_8_R1.World;
@@ -324,8 +327,18 @@ public class CommonEntity<T extends org.bukkit.entity.Entity> extends ExtendedEn
 	}
 
 	private static boolean replaceInChunk(Chunk chunk, int chunkY, Entity entity) {
-		if (replaceInList(chunk.entitySlices[chunkY], entity)) {
-			chunk.m = true;
+		if (replaceInList(new ArrayList(chunk.entitySlices[chunkY]), entity)) {
+			//chunk.m = true;
+			//Attempting to set accessible to true and overriding the value with reflection
+			Field field;
+			try {
+				field = Chunk.class.getDeclaredField("p");
+				field.setAccessible(true);
+				field.setBoolean(chunk, true);
+			} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return true;
 		} else {
 			return false;
