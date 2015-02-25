@@ -2,6 +2,7 @@ package com.bergerkiller.bukkit.common.reflection.classes;
 
 import java.util.Random;
 
+import net.minecraft.server.v1_8_R1.Block;
 import net.minecraft.server.v1_8_R1.BlockPosition;
 
 import org.bukkit.Bukkit;
@@ -47,7 +48,7 @@ public class EntityRef {
 	public static final FieldAccessor<Boolean> allowTeleportation = TEMPLATE.getField("an");
 
 	/* Methods */
-	private static final MethodAccessor<Void> updateFalling = TEMPLATE.getMethod("a", double.class, boolean.class);
+	private static final MethodAccessor<Void> updateFalling = TEMPLATE.getMethod("a", double.class, boolean.class,Block.class,BlockPosition.class);//double.class,boolean.class
 	private static final MethodAccessor<Void> updateBlockCollision = TEMPLATE.getMethod("checkBlockCollisions");
 	private static final MethodAccessor<Void> playStepSound = TEMPLATE.getMethod("a", BlockPosition.class, BlockRef.TEMPLATE.getType());
 	private static final MethodAccessor<Boolean> hasMovementSound = TEMPLATE.getMethod("r_");

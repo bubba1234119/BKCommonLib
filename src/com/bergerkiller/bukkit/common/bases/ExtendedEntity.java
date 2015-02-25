@@ -691,9 +691,9 @@ public class ExtendedEntity<T extends org.bukkit.entity.Entity> {
 	 * 
 	 * @param packet to send
 	 */
-	public void sendPacketNearby(CommonPacket packet) {
-		WorldUtil.getTracker(getWorld()).sendPacket(entity, packet);
-	}
+	//public void sendPacketNearby(CommonPacket packet) {
+	//	WorldUtil.getTracker(getWorld()).sendPacket(entity, packet);
+	//}
 
 	public void setTicksLived(int arg0) {
 		entity.setTicksLived(arg0);
