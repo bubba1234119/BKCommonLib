@@ -26,12 +26,12 @@ public class EntityRef {
 	
 	/* Fields */
 	public static final FieldAccessor<org.bukkit.entity.Entity> bukkitEntity = TEMPLATE.getField("bukkitEntity");
-	public static final FieldAccessor<Integer> chunkX = TEMPLATE.getField("ah");
-	public static final FieldAccessor<Integer> chunkY = TEMPLATE.getField("ai");
-	public static final FieldAccessor<Integer> chunkZ = TEMPLATE.getField("aj");
+	public static final FieldAccessor<Integer> chunkX = TEMPLATE.getField("ae");//ah
+	public static final FieldAccessor<Integer> chunkY = TEMPLATE.getField("af");//ai
+	public static final FieldAccessor<Integer> chunkZ = TEMPLATE.getField("ag");//aj
 	public static final FieldAccessor<Boolean> positionChanged = TEMPLATE.getField("al");
 	public static final FieldAccessor<Boolean> velocityChanged = TEMPLATE.getField("velocityChanged");
-	public static final FieldAccessor<Boolean> justLanded = TEMPLATE.getField("flag1");//J
+	public static final FieldAccessor<Boolean> justLanded = TEMPLATE.getField("g");//J
 	public static final FieldAccessor<Double> locX = TEMPLATE.getField("locX");
 	public static final FieldAccessor<Double> locY = TEMPLATE.getField("locY");
 	public static final FieldAccessor<Double> locZ = TEMPLATE.getField("locZ");
@@ -51,7 +51,7 @@ public class EntityRef {
 	private static final MethodAccessor<Void> updateBlockCollision = TEMPLATE.getMethod("checkBlockCollisions");
 	private static final MethodAccessor<Void> playStepSound = TEMPLATE.getMethod("a", BlockPosition.class, BlockRef.TEMPLATE.getType());
 	private static final MethodAccessor<Boolean> hasMovementSound = TEMPLATE.getMethod("r_");
-	private static final MethodAccessor<Void> setRotation = TEMPLATE.getMethod("b", float.class, float.class);
+	private static final MethodAccessor<Void> setRotation = TEMPLATE.getMethod("setYawPitch", float.class, float.class);//b
 	private static final MethodAccessor<Void> burn = TEMPLATE.getMethod("burn", float.class);
 	private static final MethodAccessor<Boolean> isInWaterUpdate = TEMPLATE.getMethod("W");
 	private static final MethodAccessor<Boolean> isInWaterNoUpdate = TEMPLATE.getMethod("V");
