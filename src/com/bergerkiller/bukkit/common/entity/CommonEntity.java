@@ -8,7 +8,6 @@ import java.util.logging.Level;
 
 import net.minecraft.server.v1_8_R1.Chunk;
 import net.minecraft.server.v1_8_R1.Entity;
-import net.minecraft.server.v1_8_R1.EntitySlice;
 import net.minecraft.server.v1_8_R1.EntityTrackerEntry;
 import net.minecraft.server.v1_8_R1.IInventory;
 import net.minecraft.server.v1_8_R1.World;

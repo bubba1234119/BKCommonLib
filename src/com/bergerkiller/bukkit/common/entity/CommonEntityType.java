@@ -165,13 +165,15 @@ public class CommonEntityType {
 	static{
 		// Register all available entities here
 		// Misc
+		/*Register ARMOR_STAND,ENDERMITE,GUARDIAN,RABBIT
+		 */
 		add(EntityType.PLAYER, "Player", 512, 2, true);
 		add(EntityType.FISHING_HOOK, "FishingHook", 64, 5, true);
 		add(EntityType.ARROW, "Arrow", 64, 20, false);
 		add(EntityType.SMALL_FIREBALL, "SmallFireball", 64, 10, false);
 		add(EntityType.FIREBALL, "Fireball", 64, 10, false);
 		add(EntityType.SNOWBALL, "Snowball", 64, 10, true);
-		add(EntityType.ENDER_PEARL, "EnderPearl", 64, 10, true);
+		add(EntityType.ENDER_PEARL, "EnderPearl", 64, 10, true); //
 		add(EntityType.ENDER_SIGNAL, "EnderSignal", 64, 4, true);
 		add(EntityType.EGG, "Egg", 64, 10, true);
 		add(EntityType.SPLASH_POTION, "Potion", 64, 10, true);
