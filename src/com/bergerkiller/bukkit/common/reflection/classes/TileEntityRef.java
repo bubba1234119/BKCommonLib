@@ -19,9 +19,10 @@ import com.bergerkiller.bukkit.common.reflection.TranslatorFieldAccessor;
 public class TileEntityRef {
 	public static final ClassTemplate<?> TEMPLATE = NMSClassTemplate.create("TileEntity");
 	public static final TranslatorFieldAccessor<World> world = TEMPLATE.getField("world").translate(ConversionPairs.world);
-	public static final FieldAccessor<Integer> x = TEMPLATE.getField("x");
-	public static final FieldAccessor<Integer> y = TEMPLATE.getField("y");
-	public static final FieldAccessor<Integer> z = TEMPLATE.getField("z");
+	//public static final FieldAccessor<Integer> x = TEMPLATE.getField("x");
+	//public static final FieldAccessor<Integer> y = TEMPLATE.getField("y"); x,y,z deprecated position will now need to be used
+	//public static final FieldAccessor<Integer> z = TEMPLATE.getField("z");
+	public static final FieldAccessor<BlockPosition> blockPositon = TEMPLATE.getField("position");
 	private static final MethodAccessor<Object> getUpdatePacket = TEMPLATE.getMethod("getUpdatePacket");
 
 	public static boolean hasWorld(Object tileEntity) {

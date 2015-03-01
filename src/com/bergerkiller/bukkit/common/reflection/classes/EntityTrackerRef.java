@@ -2,8 +2,6 @@ package com.bergerkiller.bukkit.common.reflection.classes;
 
 import java.util.Set;
 
-import net.minecraft.server.v1_8_R1.Packet;
-
 import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -24,7 +22,7 @@ public class EntityTrackerRef {
 	private static final MethodAccessor<Void> spawnEntities = TEMPLATE.getMethod("a", EntityPlayerRef.TEMPLATE.getType(), ChunkRef.TEMPLATE.getType());
 	private static final MethodAccessor<Void> track = TEMPLATE.getMethod("track", EntityRef.TEMPLATE.getType());
 	private static final MethodAccessor<Void> untrack = TEMPLATE.getMethod("untrackEntity", EntityRef.TEMPLATE.getType());
-	private static final MethodAccessor<Void> sendPacket = TEMPLATE.getMethod("sendPacketToEntity", Entity.class,Packet.class);//EntityRef.TEMPLATE.getType(), PacketType.DEFAULT.getType());
+	private static final MethodAccessor<Void> sendPacket = TEMPLATE.getMethod("sendPacketToEntity", EntityRef.TEMPLATE.getType(),PacketType.DEFAULT.getType());//EntityRef.TEMPLATE.getType(), PacketType.DEFAULT.getType());
 	private static final MethodAccessor<Void> untrackPlayer = TEMPLATE.getMethod("untrackPlayer", EntityPlayerRef.TEMPLATE.getType());
 
 	public static void sendPacket(Object entityTrackerInstance, Entity entity, Object packet) {

@@ -10,14 +10,17 @@ import com.bergerkiller.bukkit.common.reflection.classes.LongHashSetRef;
  * This type of HashSet allows storing long keys.
  * Ideally, two int values are merged into one long to store 2D-coordinates.
  */
-public class LongHashSet extends BasicWrapper implements Iterable<Long> {
+//Abstract for the time being
+public abstract class LongHashSet extends BasicWrapper implements Iterable<Long> {
 
-	public LongHashSet() {
-		this.setHandle(LongHashSetRef.constructor1.newInstance());
+	/*public LongHashSet() {
+		this.setHandle(handle);
+		//	this.setHandle(LongHashSetRef.constructor1.newInstance());
 	}
 
 	public LongHashSet(int size) {
-		this.setHandle(LongHashSetRef.constructor2.newInstance(size));
+		this.setHandle(handle);;
+		//this.setHandle(LongHashSetRef.constructor2.newInstance(size));
 	}
 
 	public LongHashSet(Object handle) {
@@ -25,7 +28,7 @@ public class LongHashSet extends BasicWrapper implements Iterable<Long> {
 	}
 
 	public Iterator<Long> iterator() {
-		return LongHashSetRef.iterator.invoke(handle);
+		return ((org.bukkit.craftbukkit.v1_8_R1.util.LongHashSet) handle).iterator();//LongHashSetRef.iterator.invoke(handle);
 	}
 
 	public boolean add(int msw, int lsw) {
@@ -84,32 +87,18 @@ public class LongHashSet extends BasicWrapper implements Iterable<Long> {
 		return LongHashSetRef.isEmpty.invoke(handle);
 	}
 
-	/**
-	 * Gets the amount of Long values stored in this LongHashSet
-	 * 
-	 * @return size
-	 */
+
 	public int size() {
 		return Math.max(((org.bukkit.craftbukkit.v1_8_R1.util.LongHashSet) handle).size(), 0);
 	}
 
-	/**
-	 * Obtains an Iterator that returns long values instead of the Long object type.
-	 * This may be used to reduce garbage memory when iterating.
-	 * 
-	 * @return long iterator
-	 */
+
 	public LongIterator longIterator() {
 		return new LongIterator(this);
 	}
 
-	/**
-	 * Class pretty much cloned from CraftBukkit's util/LongHashSet class.
-	 * All credits go to them (or whoever wrote it)
-	 * Changes:<br>
-	 * - removed modified check (would slow down too much)<br>
-	 * - changed Long to long
-	 */
+
+
 	public static class LongIterator {
 		private int index;
 		private int lastReturned = -1;
@@ -157,5 +146,5 @@ public class LongHashSet extends BasicWrapper implements Iterable<Long> {
 				LongHashSetRef.elements.set(handle, LongHashSetRef.elements.get(handle) - 1);
 			}
 		}
-	}
+	}*/
 }

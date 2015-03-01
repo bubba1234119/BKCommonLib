@@ -10,6 +10,9 @@ import com.bergerkiller.bukkit.common.reflection.SafeConstructor;
 import com.bergerkiller.bukkit.common.utils.CommonUtil;
 
 public class LongHashSetRef {
+	/*This area seems deprecated
+	 *http://prntscr.com/6b3ae3
+	 *http://prntscr.com/6b3aho 
 	public static final ClassTemplate<?> TEMPLATE = ClassTemplate.create(CommonUtil.getCBClass("util.LongHashSet"));
 	public static final SafeConstructor<?> constructor1;
 	public static final SafeConstructor<?> constructor2;
@@ -66,5 +69,5 @@ public class LongHashSetRef {
 			constructor1 = TEMPLATE.getConstructor();
 			constructor2 = TEMPLATE.getConstructor(int.class);
 		}
-	}
+	}*/
 }

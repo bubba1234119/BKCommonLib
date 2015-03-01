@@ -465,9 +465,9 @@ public class BlockUtil extends MaterialUtil {
 				int zMax = z + radiusZ;
 				int tx, ty, tz;
 				for (Object tile : WorldRef.tileEntityList.get(Conversion.toWorldHandle.convert(world))) {
-					tx = TileEntityRef.x.get(tile);
-					ty = TileEntityRef.y.get(tile);
-					tz = TileEntityRef.z.get(tile);
+					tx = TileEntityRef.blockPositon.get(tile).getX();
+					ty = TileEntityRef.blockPositon.get(tile).getY();
+					tz = TileEntityRef.blockPositon.get(tile).getZ();
 					if (tx < xMin || ty < yMin || tz < zMin || tx > xMax || ty > yMax || tz > zMax) {
 						continue;
 					}
